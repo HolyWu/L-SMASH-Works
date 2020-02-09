@@ -176,7 +176,7 @@
                 The value -1 deactivates any audio stream.
                 If unchecked, try to activate the first detected audio stream.
             + Apply repeat flag : check box (default : checked)
-                Reconstruct frames by the flags specified in video stream and then treat all frames as interlaced if checked and usable.
+                Reconstruct frames by the flags specified in video stream if checked and usable.
                 Note that this option is ignored when VFR->CFR conversion is enabled.
             + Field dominance : combo box (default : Obey source flags)
                 Which field, top or bottom, is displayed first.
