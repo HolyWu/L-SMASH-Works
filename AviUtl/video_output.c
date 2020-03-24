@@ -99,6 +99,7 @@ static output_colorspace_index determine_colorspace_conversion
 #endif
             *output_pixel_format = AV_PIX_FMT_YUV444P16LE;  /* planar YUV 4:4:4, 48bpp little-endian -> YC48 */
             return OUTPUT_YC48;
+        case AV_PIX_FMT_YUVA420P :
         case AV_PIX_FMT_ARGB :
         case AV_PIX_FMT_RGBA :
         case AV_PIX_FMT_ABGR :
