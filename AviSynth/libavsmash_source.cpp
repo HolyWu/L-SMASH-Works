@@ -90,15 +90,19 @@ static int get_composition_duration
     uint32_t coded_sample_number = libavsmash_video_get_coded_sample_number(vdhp, composition_sample_number);
     if (composition_sample_number == last_sample_number)
         goto no_composition_duration;
-    uint32_t next_coded_sample_number = libavsmash_video_get_coded_sample_number(vdhp, composition_sample_number + 1);
-    uint64_t      cts;
-    uint64_t next_cts;
-    if (libavsmash_video_get_cts(vdhp, coded_sample_number, &cts) < 0
-        || libavsmash_video_get_cts(vdhp, next_coded_sample_number, &next_cts) < 0)
-        goto no_composition_duration;
-    if (next_cts <= cts || (next_cts - cts) > INT_MAX)
-        return 0;
-    return (int)(next_cts - cts);
+    {
+        uint32_t next_coded_sample_number = libavsmash_video_get_coded_sample_number(vdhp, composition_sample_number + 1);
+        uint64_t      cts;
+        uint64_t next_cts;
+
+        if (libavsmash_video_get_cts(vdhp, coded_sample_number, &cts) < 0
+            || libavsmash_video_get_cts(vdhp, next_coded_sample_number, &next_cts) < 0)
+            goto no_composition_duration;
+
+        if (next_cts <= cts || (next_cts - cts) > INT_MAX)
+            return 0;
+        return (int)(next_cts - cts);
+    }
 no_composition_duration:;
     uint32_t sample_duration;
     if (libavsmash_video_get_sample_duration(vdhp, coded_sample_number, &sample_duration) < 0)
